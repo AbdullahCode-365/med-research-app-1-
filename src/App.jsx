@@ -16,8 +16,6 @@ export default function MedicalResearchUI() {
   const fileInputRef = useRef(null);
   const uploadedFileRef = useRef(null);
 
-  const API_BASE_URL = 'https://med-research-backend.onrender.com';
-
   const handleUpload = async (file) => {
     if (file) {
       setUploadName(file.name);
@@ -28,7 +26,7 @@ export default function MedicalResearchUI() {
       setSummary('Loading summary...');
 
       try {
-        const res = await fetch(`${API_BASE_URL}/api/summarize-pdf`, {
+        const res = await fetch('/api/summarize-pdf', {
           method: 'POST',
           body: formData,
         });
@@ -46,7 +44,7 @@ export default function MedicalResearchUI() {
   const handleSearch = async () => {
     setLoading(true);
     try {
-      const res = await fetch(`${API_BASE_URL}/api/search?q=${encodeURIComponent(searchQuery)}`);
+      const res = await fetch(`/api/search?q=${encodeURIComponent(searchQuery)}`);
       const data = await res.json();
       setSearchResults(data.results);
     } catch (err) {
@@ -58,7 +56,7 @@ export default function MedicalResearchUI() {
   const handleSummarize = async (urlOrText) => {
     setSummary('Loading summary...');
     try {
-      const res = await fetch(`${API_BASE_URL}/api/summarize`, {
+      const res = await fetch('/api/summarize', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({ input: urlOrText }),
