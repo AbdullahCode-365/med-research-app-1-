@@ -6,8 +6,12 @@ export function Tabs({ defaultValue, children }) {
   return <div>{React.Children.map(children, child => React.cloneElement(child, { context }))}</div>;
 }
 
-export function TabsList({ children }) {
-  return <div className="flex space-x-2 mb-2">{children}</div>;
+export function TabsList({ context, children }) {
+  return (
+    <div className="flex space-x-2 mb-2">
+      {React.Children.map(children, child => React.cloneElement(child, { context }))}
+    </div>
+  );
 }
 
 export function TabsTrigger({ value, context, children }) {
